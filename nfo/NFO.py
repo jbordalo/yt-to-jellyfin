@@ -24,5 +24,5 @@ class VideoNFOWriter:
 
         for k, (title, description, upload_date) in enumerate(self.episodes): 
             number = k+1
-            with open(os.path.join({self.base_path}, {self.title}, f"Episode {number}.nfo"), "w") as f:
+            with open(os.path.join(self.base_path, self.title, f"Episode {number}.nfo"), "w") as f:
                 f.write(episode_template.format(title=title, description=description, number=number, date=upload_date))

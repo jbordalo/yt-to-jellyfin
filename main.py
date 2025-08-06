@@ -27,7 +27,7 @@ def download_playlist(url):
     with YoutubeDL(ydl_opts) as ydl:
         try:
             # extract metadata
-            info = ydl.extract_info(url, download=True)
+            info = ydl.extract_info(url, download=False)
 
             title = info.get('title')
 
@@ -44,10 +44,12 @@ def download_playlist(url):
             nfo_writer.write()
             os.remove(archive_name)
             os.rename(os.path.join(DOWNLOAD_DIR, title, f"{title}.jpg"), os.path.join(DOWNLOAD_DIR, title, "poster.jpg"))
+        except FileNotFoundError:
+            print("No archive file to delete")
         except Exception as e:
             print(e)
 
 if __name__ == "__main__":
-    URL = ""
+    URL = "https://www.youtube.com/watch?v=hdCBGWcd4qw&list=PL2FEB728FF960FBD9"
 
     download_playlist(URL)

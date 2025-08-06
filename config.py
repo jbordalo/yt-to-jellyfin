@@ -1,1 +1,1 @@
-DOWNLOAD_DIR=""
+DOWNLOAD_DIR="/media/hdd/Courses"
