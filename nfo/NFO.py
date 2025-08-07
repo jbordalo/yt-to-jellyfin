@@ -1,11 +1,13 @@
 from nfo.templates import *
 import os
+from yt_dlp.utils import sanitize_filename
 
 class VideoNFOWriter:
 
 
     def __init__(self, title: str, base_path: str):
         self.title = title
+        self.safe_title = sanitize_filename(title, restricted=True)
         self.episodes = []
         self.base_path = base_path
 
@@ -19,10 +21,9 @@ class VideoNFOWriter:
 
 
     def write(self):
-        with open(os.path.join(self.base_path, self.title, "tvshow.nfo"), "w") as f:
+        with open(os.path.join(self.base_path, self.safe_title, "tvshow.nfo"), "w") as f:
             f.write(self.__main_nfo())
 
-        for k, (title, description, upload_date) in enumerate(self.episodes): 
-            number = k+1
-            with open(os.path.join(self.base_path, self.title, f"Episode {number}.nfo"), "w") as f:
+        for number, (title, description, upload_date) in enumerate(self.episodes, 1): 
+            with open(os.path.join(self.base_path, self.safe_title, f"dload-{number:03d}.nfo"), "w") as f:
                 f.write(episode_template.format(title=title, description=description, number=number, date=upload_date))
