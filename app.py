@@ -2,12 +2,12 @@ from flask import Flask, request, render_template
 import threading
 import queue
 import time
+from config import THREAD_POOL_SIZE
 
 from playlist_downloader import download_playlist
 
 app = Flask(__name__)
 download_queue = queue.Queue()
-THREAD_POOL_SIZE = 2
 
 
 def worker():
